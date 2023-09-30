@@ -1,5 +1,6 @@
 import { Text, View, Button } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { StackActions } from '@react-navigation/native';
 
 function EventsScreen({ navigation }) {
   return (
@@ -33,9 +34,37 @@ function EventsSecondScreen({ navigation }) {
       }}
     >
       <Text>Events second page!</Text>
+      <Button
+          onPress={() => {
+            navigation.navigate("EventsThird");
+          }}
+          title="Third Screen"
+        ></Button>
     </View>
   );
 }
+
+function EventsThirdScreen({ navigation }) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "lightgreen",
+        }}
+      >
+        <Text>Events third page!</Text>
+        <Button
+          onPress={() => {
+            navigation.dispatch(StackActions.popToTop());
+          }}
+          title="Back to Top"
+        ></Button>
+      </View>
+    );
+  }
+  
 
 const Stack = createStackNavigator();
 
@@ -46,6 +75,10 @@ export default function EventsStack() {
       <Stack.Screen
         name="EventsSecond"
         component={EventsSecondScreen}
+      ></Stack.Screen>
+    <Stack.Screen
+        name="EventsThird"
+        component={EventsThirdScreen}
       ></Stack.Screen>
     </Stack.Navigator>
   );
